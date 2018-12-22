@@ -1,0 +1,56 @@
+Botón raee #642a4e
+
+Botón vidrios #2c8948
+
+Botón plásticos #b69942
+
+Botón cartón/papel #2d5c9b
+
+Botón escombros #29292a
+
+Botón metales/aluminio #656565
+
+Botón muebles #2c2417
+
+Botón pilas #892929
+
+Botón aceites/lubricantes #5a2323
+
+Botón neumáticos/naterías #411717
+
+---------
+
+Teléfono #00b9d8
+
+Correo y Gmail #e62b33
+
+Whatsapp #84c75d
+
+Facebook #6081c4
+
+---------
+
+Campos formulario #a7a4a4
+
+Textos #3b3a3a
+
+Botón continuar/guardar/buscar #1e9cd8
+
+Botón volver #3b3a3a
+----------
+
+Botón donar #e48e07
+
+Botón vender #285407
+
+Botón Pedir retiro #79b12b
+
+---------
+
+Botón bueno #3ab440
+
+Botón malo #b03939
+
+---------
+
+Botón raee oscuro (02e-raee-todos) : #330e25

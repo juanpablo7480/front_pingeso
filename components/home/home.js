@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import {StyleSheet, View, Text, Button, ImageBackground, TextInput, AsyncStorage} from 'react-native';
-import { connect } from 'react-redux'
+import {StyleSheet, View, Text, Image, TextInput, AsyncStorage, TouchableOpacity} from 'react-native';
+import {Button} from 'react-native-paper';
+import { connect } from 'react-redux';
 
 class Home extends PureComponent{
 
@@ -19,43 +20,75 @@ class Home extends PureComponent{
 
   render(){
     return(
-      <ImageBackground source = {require('../../assets/background.png')} style = {styles.mybackground}>
-        <View>
-          <Text>Bienvenido</Text>
-          <Button style = {styles.button} onPress = {this.attemptLogout} title = "Salir" />
+      <View style = {styles.container}>
+        <View style = {styles.welcome}>
+          <Text style = {styles.welcomeText}>¿Qué desea hacer?</Text>
+          <View style = {styles.containerActions}>
+            <Button mode = 'contained' icon = 'add' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+              <Text>Ingresar producto</Text>
+            </Button>
+            <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton}>
+              <Text>Escanear código</Text>
+            </Button>
+            <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton2} onPress = {this.attemptLogout}>
+              <Text>Cerrar sesión</Text>
+            </Button>
+          </View>
         </View>
-      </ImageBackground>
+      </View>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
-  mybackground: {
-   flex:1,
-   position: 'absolute',
-   width: '100%',
-   height: '100%',
+  container:{
+    backgroundColor: '#eeeeee',
+    height: '100%',
+    flex:1
+  },
+  welcome:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 15
+  },
+  welcomeText:{
+    fontSize: 22,
+    color:'#757575'
+  },
+  containerActions:{
+    marginTop: 30,
+
+  },
+ cardButton:{
+   borderTopLeftRadius: 10,
+   borderTopRightRadius: 10,
+   borderRadius: 10,
+   elevation: 4,
+   marginTop: 5,
+   marginBottom: 10,
+   backgroundColor: '#642A4E',
+   width: 220,
+   height:50,
    justifyContent: 'center',
-   resizeMode: 'cover'
+   alignItems: 'center'
  },
- container:{
-   marginTop: 170,
+ cardButton2:{
+   borderTopLeftRadius: 10,
+   borderTopRightRadius: 10,
+   borderRadius: 10,
+   elevation: 4,
+   marginTop: 5,
+   marginBottom: 10,
+   backgroundColor: '#3b3a3a',
+   width: 220,
+   height:50,
    justifyContent: 'center',
-   alignItems: 'center',
+   alignItems: 'center'
  },
- inputText:{
-   backgroundColor: 'rgba(169,184,189,0.7)',
-   borderBottomColor: 'transparent',
-   borderTopLeftRadius: 30,
-   borderTopRightRadius: 30,
-   borderRadius: 30,
-   textAlign: 'center',
-   justifyContent: 'center',
-   alignItems: 'center',
-   width: '85%',
-   height: '18%',
-   marginTop:10,
-   marginBottom: 20,
+ textAdd:{
+   color: '#fff',
+   fontSize: 16,
  },
  button:{
    justifyContent: 'center',

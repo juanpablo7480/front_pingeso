@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
-import {StyleSheet, View, Text, Button, ImageBackground, TextInput, AsyncStorage} from 'react-native';
+import {StyleSheet, View, Text, ImageBackground, TextInput, AsyncStorage} from 'react-native';
+import {Button} from 'react-native-paper';
 import {createStackNavigato, createAppContainer} from 'react-navigation';
 import { connect } from 'react-redux'
 
 class Login extends PureComponent{
-
+  static navigationOptions = {header:null};
   constructor(props){
     super(props);
     this.attemptLogin = this.attemptLogin.bind(this);
@@ -23,11 +24,13 @@ class Login extends PureComponent{
 
   render(){
     return(
-      <ImageBackground source = {require('../../assets/background.png')} style = {styles.mybackground}>
-        <View style = {styles.container}>
-          <TextInput placeholder = 'Nombre de usuario' value = {this.state.username} onChangeText = {username => this.setState({username})} style = {styles.inputText}/>
-          <TextInput placeholder = 'Contraseña' value = {this.state.password} onChangeText = {password => this.setState({password})} style = {styles.inputText} secureTextEntry = {true}/>
-          <Button onPress = {this.attemptLogin} title = "Ingresar" style = {styles.button} />
+      <ImageBackground source = {require('../../assets/login.jpg')} style = {styles.mybackground}>
+        <View style = {styles.loginView}>
+          <View style = {styles.container}>
+            <TextInput placeholder = 'Nombre de usuario' value = {this.state.username} onChangeText = {username => this.setState({username})} style = {styles.inputText}/>
+            <TextInput placeholder = 'Contraseña' value = {this.state.password} onChangeText = {password => this.setState({password})} style = {styles.inputText} secureTextEntry = {true}/>
+            <Button mode = 'contained' onPress = {this.attemptLogin} style = {styles.button}>Ingresar</Button>
+          </View>
         </View>
       </ImageBackground>
     );
@@ -42,6 +45,10 @@ const styles = StyleSheet.create({
    height: '100%',
    justifyContent: 'center',
    resizeMode: 'cover'
+ },
+ loginView:{
+   backgroundColor: 'rgba(100,42,78,0.70)',
+   flex:1
  },
  container:{
    marginTop: 170,
@@ -58,7 +65,7 @@ const styles = StyleSheet.create({
    justifyContent: 'center',
    alignItems: 'center',
    width: '85%',
-   height: '18%',
+   height: '17%',
    marginTop:10,
    marginBottom: 20,
  },
@@ -70,8 +77,8 @@ const styles = StyleSheet.create({
    borderTopRightRadius: 30,
    borderRadius: 30,
    width: '85%',
-   height: '18%',
-   backgroundColor: '#009688'
+   height: '17%',
+   backgroundColor: '#642A4E'
  }
  });
 
