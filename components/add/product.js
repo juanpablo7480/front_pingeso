@@ -61,16 +61,12 @@ export default class product extends Component{
   renderResult(){
     return(
       <TouchableOpacity style = {styles.framePhoto}>
-      {this.state.photo ? <Image source = {{isStatic:true,uri:this.state.photo}} style = {{width:'100%',height:180}}/>
+      {this.state.photo ? <Image source = {{isStatic:true,uri:this.props.navigation.getParam('photo',null)}} style = {{width:'100%',height:180}}/>
         :
         <Text style = {styles.textPhotoResult}>No hay foto que mostrar</Text>
       }
     </TouchableOpacity>
     )
-  }
-
-  componentDidMount(){
-    this.setState({photo:this.props.navigation.getParam('photo',null)})
   }
 
   getValues(){
@@ -80,7 +76,11 @@ export default class product extends Component{
     console.log(this.state.raee)
     console.log(this.state.marca)
     console.log(this.state.modelo)
-    console.log(this.state.photo)
+    console.log(this.props.navigation.getParam('photo',null))
+  }
+
+  componentWillMount(){
+    this.setState({photo:this.props.navigation.state.params})
   }
 
   render(){

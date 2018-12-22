@@ -31,7 +31,7 @@ static navigationOptions = {header:null};
     console.log("Foto confirmada..guardando dir")
     //variable redux en donde se guarda la Foto
     console.log(this.state.photo.uri)
-    this.props.navigation.push('product',{photo:this.state.photo.uri});
+    this.props.navigation.navigate('product',{photo:this.state.photo.uri});
   }
 
   deletePicture = () => {
@@ -118,7 +118,6 @@ static navigationOptions = {header:null};
      }
    }
  }
-
 
 const styles = StyleSheet.create({
   bottomBarCamera:{

@@ -12,6 +12,7 @@ export default class owner extends Component{
     this.getTypeDescRaee = this.getTypeDescRaee.bind(this);
     this.helperRut = this.helperRut.bind(this);
     this.validRut = this.validRut.bind(this);
+    this.addOwnerData = this.addOwnerData.bind(this);
   }
     state = {
       dialog_visible: false,
@@ -165,6 +166,24 @@ export default class owner extends Component{
       }
     }
 
+  addOwnerData(){
+    if(this.validRut() && this.address !== '' && this.region !== '0'){
+      if(!this.validRut()){
+        this.setState({is_valid_rut:true})
+      }
+      else{
+        this.props.navigation.navigate('product',{
+          rut:this.state.rut,
+          address:this.state.address,
+          region:this.state.region,
+          photo:null
+        })
+      }
+    }
+    else
+      alert("Debe llenar todos los campos");
+  }
+
   render(){
       return(
         <View style={styles.container}>
@@ -181,12 +200,7 @@ export default class owner extends Component{
           </View>
           <View style = {styles.button}>
             <Button icon='arrow-forward' mode = "contained" color = "#1e9cd8" style = {{width:'75%'}}
-              onPress = {() => {this.props.navigation.navigate('product',{
-                rut:this.state.rut,
-                address:this.state.address,
-                region:this.state.region,
-                photo:null
-                })}}>Siguiente</Button>
+              onPress = {this.addOwnerData}>Siguiente</Button>
           </View>
         </View>
       );

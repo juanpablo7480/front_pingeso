@@ -110,6 +110,8 @@ export const authStateReducer = (state={app_started:false, authenticated:false},
     return state
   }
 
+
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
