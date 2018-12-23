@@ -71,6 +71,7 @@ export default class product extends Component{
 
   getValues(){
     console.log(this.props.navigation.getParam('rut',''))
+    console.log(this.props.navigation.getParam('ownerName'),'')
     console.log(this.props.navigation.getParam('address',''))
     console.log(this.props.navigation.getParam('rut',''))
     console.log(this.state.raee)
@@ -78,6 +79,8 @@ export default class product extends Component{
     console.log(this.state.modelo)
     console.log(this.props.navigation.getParam('photo',null))
   }
+
+
 
   componentWillMount(){
     this.setState({photo:this.props.navigation.state.params})

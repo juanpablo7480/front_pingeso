@@ -27,7 +27,7 @@ class Home extends PureComponent{
             <Button mode = 'contained' icon = 'add' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
               <Text>Ingresar producto</Text>
             </Button>
-            <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton}>
+            <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
               <Text>Escanear código</Text>
             </Button>
             <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton2} onPress = {this.attemptLogout}>

@@ -6,6 +6,7 @@ import Home from '../home/home';
 import Owner from '../add/owner.js';
 import Product from '../add/product.js';
 import CamaraView from '../Camera/Camera';
+import QrScanner from '../qrScanner/qrScanner';
 
 export default AppNavigation = (authenticated) => createStackNavigator({
   login:{
@@ -50,7 +51,18 @@ export default AppNavigation = (authenticated) => createStackNavigator({
   },
   CameraView:{
     getScreen:()=>CamaraView
-  }
+  },
+  qrScanner:{
+    getScreen:()=>QrScanner,
+    navigationOptions:{
+      title:'Scanner',
+      headerTintColor:'#fff',
+      headerStyle:{
+        backgroundColor: '#330e25',
+        height: 70
+      }
+    }
+  },
 
 
 },{

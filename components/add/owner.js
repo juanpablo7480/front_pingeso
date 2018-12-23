@@ -8,36 +8,21 @@ export default class owner extends Component{
   constructor(props){
     super(props);
     this.getResiduos = this.getResiduos.bind(this);
-    this.getIDResidue = this.getIDResidue.bind(this);
+    
     this.getTypeDescRaee = this.getTypeDescRaee.bind(this);
     this.helperRut = this.helperRut.bind(this);
     this.validRut = this.validRut.bind(this);
     this.addOwnerData = this.addOwnerData.bind(this);
   }
     state = {
-      dialog_visible: false,
-      spinner: false,
       location:null,
-      errorMessage:null,
       is_valid_rut: false,
       rut:'',
       address: '',
       region: '',
-      raee: '',
-      type_raee:'',
       type_desc_raee: '',
-      desc: '',
-      subtitle_view: 'agregar producto',
-      message: '',
-      visible: false,
-      text: "",
-      nombre: "",
-      fecha: "",
+      ownerName: "",
       marca: "",
-      tipo_producto: "",
-      subtipo: "",
-      modelo:"",
-      info_adicional:"",
     //raees:[{id:'',name:''}] para array de json para cargar desde bd para que no sea estatico
     //types:[{id:'',name:''}] para array de json para cargar desde bd para que no sea estatico
       raees: [
@@ -116,64 +101,15 @@ export default class owner extends Component{
         return false;
     }
 
-    getIDResidue(){
-      var currentDate = new Date();
-      var aux_random = Math.floor((Math.random()*100) + 1);
-      try
-      {
-        var string_location = this.state.location.coords.latitude+","+this.state.location.coords.longitude;
-        var aux_id_residue = (this.state.raee[0]+this.state.raee[1]+this.state.raee[2]).toUpperCase() + this.state.type_desc_raee + currentDate.getDate()+ currentDate.getMonth()+currentDate.getFullYear()+aux_random.toString();
-        alert(aux_id_residue)
-      }
-      catch(err)
-      {
-        alert("Todos los datos deben ser rellenados")
-      }
-
-      this.setState({text:aux_id_residue});
-      console.log(aux_id_residue);
-      if(!this.validRut()){
-          this.setState({is_valid_rut: true});
-          alert("El residuo no pudo ser agregado, el rut es inválido");
-      }
-      else{
-          this.setState({is_valid_rut: false});
-          fetch('http://159.65.125.29:8015/products/',{
-            method: 'POST',
-            headers:{
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body:JSON.stringify({
-                'id_sensor':"",
-                'estados':[{'paso':'En camino a centro de acopio','gps':string_location}],
-                'producto':[{'code':aux_id_residue, 'marca':marca, 'tipo_producto':tipo_producto, 'subtipo':subtipo, 'foto_placa':foto_placa, 'modelo':modelo, 'info_adicional':info_adicional}],
-                'final':false,
-                'owner':[{'rut':rut,'nombre_completo':nombre,'edad':"", 'genero':"", 'direccion_retiro':address,'fecha_nac':""}],
-                'raws':[],
-                'receptor':[{'rut':rut_transportista, 'nombre':nombre, 'empresa':empresa, 'fecha_recepcion':fecha}],
-                'residuo':this.state.raee
-            })
-          }).then((response) => {
-                  if(response.status === 200)
-                  {
-                    alert("codigo generado: " + aux_id_residue);
-                    this.setState({spinner: false, message: 'El producto fue agregado exitosamente'}, () => this._showDialog());
-                  }
-                  else
-                    this.setState({spinner: false, message: 'El producto no pudo ser agregado'}, () => this._showDialog());
-                })
-      }
-    }
-
   addOwnerData(){
-    if(this.validRut() && this.address !== '' && this.region !== '0'){
+    if(this.state.rut !== '' || this.state.address !== '' || this.region !== '0' || this.state.ownerName !== ''){
       if(!this.validRut()){
         this.setState({is_valid_rut:true})
       }
       else{
         this.props.navigation.navigate('product',{
           rut:this.state.rut,
+          ownerName: this.state.ownerName,
           address:this.state.address,
           region:this.state.region,
           photo:null
@@ -188,7 +124,8 @@ export default class owner extends Component{
       return(
         <View style={styles.container}>
           <View style = {styles.containerForm}>
-            <TextInput label='RUT Propietario' value = {this.state.rut} onChangeText = {rut => this.setState({rut})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}} error = {this.state.is_valid_rut}/>
+            <TextInput label='RUT propietario' value = {this.state.rut} onChangeText = {rut => this.setState({rut})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}} error = {this.state.is_valid_rut}/>
+            <TextInput label='Nombre ropietario' value = {this.state.ownerName} onChangeText = {ownerName => this.setState({ownerName})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}}/>
             <TextInput label='Dirección' value = {this.state.address} onChangeText = {address => this.setState({address})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}}/>
             <Picker
               selectedValue={this.state.region}
