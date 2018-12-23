@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Picker, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Picker, Image, Modal } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import {Camera, Permissions, FileSystem, MediaLibrary} from 'expo';
 import CameraView from '../Camera/Camera';
+import QRCode from '../qrCode/qrCode';
 
 export default class product extends Component{
-
-
 
   constructor(props){
     super(props);
     this.getTypeDescRaee = this.getTypeDescRaee.bind(this)
     this.getResiduos = this.getResiduos.bind(this)
     this.getValues = this.getValues.bind(this)
-    state = {
-      photo:null
-    }
 
   }
 
@@ -44,8 +40,14 @@ export default class product extends Component{
       {id_type: 2, name: '3 m3', value:'3MCU'},
       {id_type: 3, name: '4 m3', value:'4MCU'}], value: 'MAQ'}
     ],
-    types_raee: [{id_type:0,name:'',value:'aux'}]
-    }
+    types_raee: [{id_type:0,name:'',value:'aux'}],
+    code:'asasdawdadasd',
+    modalVisible: false
+  }
+
+  setModalVisible(visible){
+    this.setState({modalVisible:visible})
+  }
 
   getResiduos(i){
     this.setState({types_raee: this.state.raees[i].types});
@@ -61,7 +63,7 @@ export default class product extends Component{
   renderResult(){
     return(
       <TouchableOpacity style = {styles.framePhoto}>
-      {this.state.photo ? <Image source = {{isStatic:true,uri:this.props.navigation.getParam('photo',null)}} style = {{width:'100%',height:'100%', resizeMode: 'contain'}}/>
+      {this.state.photo ? <Image source = {{isStatic:true,uri:this.props.navigation.getParam('photo',null)}} style = {{width:'100%',height:'100%', resizeMode: 'cover'}}/>
         :
         <Text style = {styles.textPhotoResult}>No hay foto que mostrar</Text>
       }
@@ -86,9 +88,24 @@ export default class product extends Component{
     this.setState({photo:this.props.navigation.state.params})
   }
 
+
   render(){
     return(
       <View style = {styles.container}>
+          <Modal
+            animationType = 'slide'
+            transparent = {false}
+            visible={this.state.modalVisible}
+            style = {styles.modalContainer}
+            onRequestClose={()=>{this.setState({modalVisible:false})}}
+            >
+             <View style = {{justifyContent:'center',alignItems:'center', marginTop:'50%'}}>
+               <QRCode code = {this.state.code} style = {{justifyContent:'center',alignItems:'center'}}/>
+               <Text style = {styles.modalText}>Código único: {this.state.code}</Text>
+               <Button mode = 'contained' style = {{marginTop: 10,backgroundColor: '#1e9cd8',width:'50%'}} onPress = {()=> alert('Imprimiendo...')}>Imprimir</Button>
+               <Button mode = 'text' color= '#3b3a3a' style = {{width:'50%', marginTop: 10}} onPress = {() => {this.setState({modalVisible:false})}}>Cerrar</Button>
+             </View>
+          </Modal>
         <View style = {styles.containerForm}>
           <TextInput label='Marca' value = {this.state.marca} onChangeText = {marca => this.setState({marca})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}} />
           <Picker
@@ -115,7 +132,7 @@ export default class product extends Component{
             {this.renderResult()}
           </View>
           <View style = {styles.button}>
-            <Button icon="check" mode = "contained" color = "#1e9cd8" onPress = {this.getValues} style = {{width:'75%'}}>Guardar</Button>
+            <Button icon="check" mode = "contained" color = "#1e9cd8" onPress = {()=>this.setState({modalVisible:true})} style = {{width:'75%'}}>Guardar</Button>
           </View>
       </View>
     )
@@ -123,6 +140,19 @@ export default class product extends Component{
 }
 
 const styles = StyleSheet.create({
+  modalContainer:{
+    backgroundColor:'transparent',
+    marginTop: 22,
+    width: '50%',
+    height: '50%',
+    flex:1
+  },
+  modalText:{
+    marginTop:20,
+    fontSize: 20,
+    justifyContent:'center',
+    alignItems: 'center'
+  },
   container:{
     height: '100%',
     backgroundColor: '#fff',
