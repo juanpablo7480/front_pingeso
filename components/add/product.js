@@ -61,7 +61,7 @@ export default class product extends Component{
   renderResult(){
     return(
       <TouchableOpacity style = {styles.framePhoto}>
-      {this.state.photo ? <Image source = {{isStatic:true,uri:this.props.navigation.getParam('photo',null)}} style = {{width:'100%',height:180}}/>
+      {this.state.photo ? <Image source = {{isStatic:true,uri:this.props.navigation.getParam('photo',null)}} style = {{width:'100%',height:'100%', resizeMode: 'contain'}}/>
         :
         <Text style = {styles.textPhotoResult}>No hay foto que mostrar</Text>
       }

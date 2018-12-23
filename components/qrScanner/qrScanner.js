@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native'
 import {Button} from 'react-native-paper'
 import { BarCodeScanner, Permissions } from 'expo'
 
 export default class qrScanner extends Component{
 
 //static navigationOptions = {header:null};
+
+
   constructor(props){
     super(props);
   }
@@ -30,7 +32,7 @@ export default class qrScanner extends Component{
   //unico leido los datos del residuo
   _handleBarCodeRead = ({type,data}) =>{
     alert('Bar code with type ${type} and data ${data} has been scanned')
-    this.setState({hasResidue:true})
+    this.setState({hasResidue:true,code:data})
   }
 
   renderResult(){
@@ -56,12 +58,15 @@ export default class qrScanner extends Component{
   }
 
   renderBarCodeScanner(){
+
     return(
-      <BarCodeScanner
-        onBarCodeRead = {this._handleBarCodeRead}
-        style = {StyleSheet.absoluteFill}
-      />
-    )
+          <BarCodeScanner
+            onBarCodeRead = {this._handleBarCodeRead}
+            style = {[StyleSheet.absoluteFillObject,styles.containerScanner]}>
+            <Text style = {styles.textQR}>Escanea código QR</Text>
+            <Image source = {require('../../assets/frameqr.png')} style = {styles.frameQR} />
+          </BarCodeScanner>
+        )
   }
 
   render(){
@@ -80,8 +85,27 @@ export default class qrScanner extends Component{
   }
 }
 
+const {width} = Dimensions.get('window')
+const qrSize = width*0.6
 
 const styles =  StyleSheet.create({
+  containerScanner:{
+    flex:1,
+    alignItems: 'center'
+  },
+  frameQR:{
+    marginTop: '20%',
+    marginBottom: '20%',
+    width: qrSize,
+    height: qrSize
+  },
+  textQR:{
+    fontSize: width * 0.09,
+    marginTop: '10%',
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
+  },
   container:{
     height: '100%',
     backgroundColor: '#fff'
