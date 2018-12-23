@@ -8,7 +8,7 @@ export default class owner extends Component{
   constructor(props){
     super(props);
     this.getResiduos = this.getResiduos.bind(this);
-    
+
     this.getTypeDescRaee = this.getTypeDescRaee.bind(this);
     this.helperRut = this.helperRut.bind(this);
     this.validRut = this.validRut.bind(this);
@@ -125,7 +125,7 @@ export default class owner extends Component{
         <View style={styles.container}>
           <View style = {styles.containerForm}>
             <TextInput label='RUT propietario' value = {this.state.rut} onChangeText = {rut => this.setState({rut})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}} error = {this.state.is_valid_rut}/>
-            <TextInput label='Nombre ropietario' value = {this.state.ownerName} onChangeText = {ownerName => this.setState({ownerName})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}}/>
+            <TextInput label='Nombre propietario' value = {this.state.ownerName} onChangeText = {ownerName => this.setState({ownerName})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}}/>
             <TextInput label='Dirección' value = {this.state.address} onChangeText = {address => this.setState({address})} underlineColor = "#642a4e" style = {{backgroundColor:'#ffffff',marginBottom: 5}}/>
             <Picker
               selectedValue={this.state.region}

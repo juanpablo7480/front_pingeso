@@ -8,9 +8,9 @@ class Home extends PureComponent{
   constructor(props){
     super(props);
     this.attemptLogout = this.attemptLogout.bind(this);
+    this.renderActions = this.renderActions.bind(this);
     this.state = {
-
-
+      typeuser:4
     };
   }
 
@@ -18,22 +18,102 @@ class Home extends PureComponent{
     this.props.authLogout();
   }
 
+  renderActionsForTransportis(){
+    return(
+      <View style = {styles.containerActions}>
+        <Button mode = 'contained' icon = 'add' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+          <Text>Ingresar producto</Text>
+        </Button>
+        <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
+          <Text>Escanear código</Text>
+        </Button>
+        <Button mode = 'contained' icon = 'exit-to-app' style = {styles.cardButton2} onPress = {this.attemptLogout}>
+          <Text>Cerrar sesión</Text>
+        </Button>
+      </View>
+    )
+  }
+
+  renderActionsForOperatorCA(){
+    return(
+      <View style = {styles.containerActions}>
+        <Button mode = 'contained' icon = 'add' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+          <Text>Ingresar producto</Text>
+        </Button>
+        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+          <Text>Recibir producto</Text>
+        </Button>
+        <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
+          <Text>Escanear código</Text>
+        </Button>
+        <Button mode = 'contained' icon = 'exit-to-app' style = {styles.cardButton2} onPress = {this.attemptLogout}>
+          <Text>Cerrar sesión</Text>
+        </Button>
+      </View>
+    )
+  }
+
+  renderActionsForTransportisRP(){
+    return(
+      <View style = {styles.containerActions}>
+        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+          <Text>Recibir producto</Text>
+        </Button>
+        <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
+          <Text>Escanear código</Text>
+        </Button>
+        <Button mode = 'contained' icon = 'exit-to-app' style = {styles.cardButton2} onPress = {this.attemptLogout}>
+          <Text>Cerrar sesión</Text>
+        </Button>
+      </View>
+    )
+  }
+
+  renderActionsForOPR(){
+    return(
+      <View style = {styles.containerActions}>
+        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+          <Text>Recibir producto</Text>
+        </Button>
+        <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
+          <Text>Escanear código</Text>
+        </Button>
+        <Button mode = 'contained' icon = 'extension' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
+          <Text>Agregar material</Text>
+        </Button>
+        <Button mode = 'contained' icon = 'exit-to-app' style = {styles.cardButton2} onPress = {this.attemptLogout}>
+          <Text>Cerrar sesión</Text>
+        </Button>
+      </View>
+    )
+  }
+
+  renderActions = () => {
+    console.log(this.state.typeuser)
+    switch(this.state.typeuser){
+      case 1:
+        this.renderActionsForTransportis()
+        break
+      case 2:
+        this.renderActionsForOperatorCA()
+        break
+      case 3:
+        this.renderActionsForTransportisRP()
+        break
+      case 4:
+        this.renderActionsForOPR()
+        break
+    }
+  }
+
   render(){
     return(
       <View style = {styles.container}>
         <View style = {styles.welcome}>
           <Text style = {styles.welcomeText}>¿Qué desea hacer?</Text>
-          <View style = {styles.containerActions}>
-            <Button mode = 'contained' icon = 'add' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
-              <Text>Ingresar producto</Text>
-            </Button>
-            <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
-              <Text>Escanear código</Text>
-            </Button>
-            <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton2} onPress = {this.attemptLogout}>
-              <Text>Cerrar sesión</Text>
-            </Button>
-          </View>
+            {
+              this.state.typeuser === 1 ? this.renderActionsForTransportis() : this.state.typeuser === 2 ? this.renderActionsForOperatorCA() : this.state.typeuser == 3 ? this.renderActionsForTransportisRP() : this.renderActionsForOPR()
+            }
         </View>
       </View>
 
