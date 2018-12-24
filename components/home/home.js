@@ -40,7 +40,9 @@ class Home extends PureComponent{
         <Button mode = 'contained' icon = 'add' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
           <Text>Ingresar producto</Text>
         </Button>
-        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner',{
+            receivingResidue:true
+          })}>
           <Text>Recibir producto</Text>
         </Button>
         <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
@@ -56,7 +58,9 @@ class Home extends PureComponent{
   renderActionsForTransportisRP(){
     return(
       <View style = {styles.containerActions}>
-        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner',{
+            receivingResidue:true
+          })}>
           <Text>Recibir producto</Text>
         </Button>
         <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>
@@ -72,7 +76,9 @@ class Home extends PureComponent{
   renderActionsForOPR(){
     return(
       <View style = {styles.containerActions}>
-        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('owner')}>
+        <Button mode = 'contained' icon = 'input' style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner',{
+            receivingResidue:true
+          })}>
           <Text>Recibir producto</Text>
         </Button>
         <Button mode = 'contained' icon = {require('../../assets/codqr.png')} style = {styles.cardButton} onPress = {() => this.props.navigation.navigate('qrScanner')}>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet, Text, View, TouchableOpacity, Image, Dimensions } from 'react-native'
+import {StyleSheet, Text, View, TouchableOpacity, Image, Dimensions, Modal} from 'react-native'
 import {Button} from 'react-native-paper'
 import { BarCodeScanner, Permissions } from 'expo'
 
@@ -20,7 +20,8 @@ export default class qrScanner extends Component{
     brand: 'LG',
     raee:'Refrigerador',
     progress:'En camino a centro de acopio',
-    code:'SDADA21321DSFD'
+    code:'SDADA21321DSFD',
+    receivingResidue:this.props.navigation.getParam('receivingResidue','')
   }
 
   async componentWillMount(){
@@ -50,9 +51,16 @@ export default class qrScanner extends Component{
           <Text>Código: {this.state.code}</Text>
           <Text>Estado: {this.state.progress}</Text>
         </View>
-        <View style = {styles.button} >
-          <Button icon = 'repeat' mode = 'contained' color = '#3b3a3a' onPress = {() => {this.setState({hasResidue:false})}}>Repetir</Button>
-        </View>
+        {this.state.receivingResidue ?
+          <View style = {styles.button2} >
+            <Button icon = 'repeat' mode = 'contained' color = '#3b3a3a' onPress = {() => this.props.navigation.navigate('home')} style = {{marginRight:5}}>Cancelar</Button>
+            <Button icon = 'update' mode = 'contained' color = '#1e9cd8' onPress = {() => alert("Actualizando...")}>Recibir</Button>
+          </View>
+          :
+          <View style = {styles.button} >
+            <Button icon = 'repeat' mode = 'contained' color = '#3b3a3a' onPress = {() => {this.setState({hasResidue:false})}}>Repetir</Button>
+          </View>
+        }
       </View>
     )
   }
@@ -91,7 +99,8 @@ const qrSize = width*0.6
 const styles =  StyleSheet.create({
   containerScanner:{
     flex:1,
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   frameQR:{
     marginTop: '20%',
@@ -137,6 +146,12 @@ const styles =  StyleSheet.create({
     alignItems: 'center',
     marginBottom: 40,
     width: '100%'
-  }
+  },
+  button2:{
+    marginBottom: 40,
 
+    flexDirection: 'row',
+
+    justifyContent:'center'
+  }
 })
